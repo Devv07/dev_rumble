@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Camphub {% endblock %}
+{% block title %}Smart Campus {% endblock %}
 
 {% block content %}
 <div class="row justify-content-center my-5">
@@ -33,11 +33,6 @@
             <input type="password" class="form-control" id="password" name="password" 
                   placeholder="Password" required>
             <label for="password"><i class="bi bi-lock-fill me-2"></i>Password</label>
-            <div class="text-end mt-2">
-              <a href="{% url 'password_reset' %}" class="text-decoration-none small">
-                Forgot password?
-              </a>
-            </div>
           </div>
           
           <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
@@ -45,20 +40,7 @@
           </button>
 
           <!-- Continue with section -->
-          <div class="text-center my-3">
-            <span class="text-muted">or continue with</span>
-          </div>
-          <div class="d-flex justify-content-center gap-3 mb-4">
-            <a href="{% url 'social:begin' 'google' %}" class="btn btn-outline-danger">
-              <i class="bi bi-google me-2"></i> Google
-            </a>
-            <a href="{% url 'social:begin' 'github' %}" class="btn btn-outline-dark">
-              <i class="bi bi-github me-2"></i> GitHub
-            </a>
-            <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-outline-primary">
-              <i class="bi bi-facebook me-2"></i> Facebook
-            </a>
-          </div>
+        
           <!-- End continue with -->
 
           <div class="text-center small mt-4">
