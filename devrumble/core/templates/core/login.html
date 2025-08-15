@@ -1,57 +1,134 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Smart Campus {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}Smart Campus {% endblock %}
+  <!-- Load Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+  {% block content %}
+<div style="
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+">
+  <div style="
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  ">
+    <div style="
+      background: linear-gradient(to right, #667eea, #764ba2);
+      padding: 32px;
+      text-align: center;
+      color: white;
+    ">
+      <h2 style="margin: 0; font-weight: 600; font-size: 1.8rem;">
+        <i class="bi bi-shield-lock" style="margin-right: 10px;"></i>Welcome Back
+      </h2>
+      <p style="opacity: 0.9; margin-top: 8px; margin-bottom: 0;">Sign in to access your account</p>
+    </div>
 
-{% block content %}
-<div class="row justify-content-center my-5">
-  <div class="col-md-8 col-lg-6">
-    <div class="card animate__animated animate__fadeIn">
-      <div class="card-header bg-gradient-primary text-white py-3">
-        <h3 class="mb-0 text-center" style="color: #173859ff;">
-          <i class="bi bi-person-plus me-2"></i>Welcome 
-        </h3>
+    <div style="padding: 32px;">
+      {% if form.errors %}
+      <div style="
+        background: #fff5f5;
+        color: #e53e3e;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid #e53e3e;
+      ">
+        <i class="bi bi-exclamation-triangle-fill" style="margin-right: 10px;"></i>
+        Invalid credentials. Please try again.
       </div>
-      <div class="card-body p-4 p-md-5">
-        {% if form.errors %}
-        <div class="alert alert-danger alert-dismissible fade show">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i>
-          Invalid credentials. Please try again.
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        {% endif %}
+      {% endif %}
 
-        <form method="post" class="needs-validation" novalidate>
-          {% csrf_token %}
-          
-          <div class="form-floating mb-4">
-            <input type="text" class="form-control" id="username" name="username" 
-                  placeholder="Username" required>
-            <label for="username"><i class="bi bi-person-fill me-2"></i>Username</label>
-          </div>
-          
-          <div class="form-floating mb-4">
-            <input type="password" class="form-control" id="password" name="password" 
-                  placeholder="Password" required>
-            <label for="password"><i class="bi bi-lock-fill me-2"></i>Password</label>
-          </div>
-          
-          <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
-            <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
-          </button>
-
-          <!-- Continue with section -->
+      <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
+        {% csrf_token %}
         
-          <!-- End continue with -->
+        <div style="position: relative;">
+          <i class="bi bi-person-fill" style="
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+          "></i>
+          <input type="text" id="username" name="username" placeholder="Username" required style="
+            width: 100%;
+            padding: 14px 14px 14px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+          ">
+        </div>
+        
+        <div style="position: relative;">
+          <i class="bi bi-lock-fill" style="
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+          "></i>
+          <input type="password" id="password" name="password" placeholder="Password" required style="
+            width: 100%;
+            padding: 14px 14px 14px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+          ">
+        </div>
 
-          <div class="text-center small mt-4">
-            New to QuizMaster? 
-            <a href="{% url 'register' %}" class="text-decoration-none fw-bold">
-              Create an account
-            </a>
-          </div>
-        </form>
-      </div>
+        <button type="submit" style="
+          background: linear-gradient(to right, #667eea, #764ba2);
+          color: white;
+          border: none;
+          padding: 14px;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        ">
+          <i class="bi bi-box-arrow-in-right"></i> Sign In
+        </button>
+
+        <div style="text-align: center; margin-top: 16px; color: #718096;">
+          New to Smart Campus? 
+          <a href="{% url 'register' %}" style="
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+          ">Create an account</a>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 {% endblock %}
+</body>
+</html>

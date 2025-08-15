@@ -22,5 +22,6 @@ urlpatterns = [
     path('core/', include('core.urls')),  # <-- added comma here
     #path('collaboration/', include('collaboration.urls')),
     #path('smart_campus/', include('smart_campus.urls')),
+    path('faculty/', include('faculty.urls')),
 ]
 
