@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'smart_campus',
     'collaboration',
+<<<<<<< HEAD
     'students',
     'core.apps.CoreConfig',
+=======
+    'faculty',
+    
+>>>>>>> c9684cc88af1f4813134d5785b00ba7eddc7275b
 ]
 
 MIDDLEWARE = [
@@ -115,10 +121,23 @@ USE_I18N = True
 USE_TZ = True
 
 
+<<<<<<< HEAD
+=======
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'style'),  # For your custom style folder
+    # ... other directories
+     os.path.join(BASE_DIR, 'faculty/static'),
+]
+>>>>>>> c9684cc88af1f4813134d5785b00ba7eddc7275b
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/students/'
@@ -131,3 +150,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'core/static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+=======
+LOGIN_REDIRECT_URL = 'faculty:home'
+LOGOUT_REDIRECT_URL = 'login'
+>>>>>>> c9684cc88af1f4813134d5785b00ba7eddc7275b
