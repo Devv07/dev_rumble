@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 text-primary"><i class="bi bi-person-workspace me-2"></i> Faculty Dashboard</h2>
+
+    <!-- Upload Assignment -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-upload me-2"></i> Upload Assignment
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Assignment title" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Upload File</label>
+                    <input type="file" name="file" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-cloud-upload me-2"></i> Upload
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Post Announcement -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning">
+            <i class="bi bi-megaphone-fill me-2"></i> Post Announcement / Notification
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'post_announcement' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Announcement</label>
+                    <textarea name="announcement" class="form-control" rows="3" placeholder="Enter your announcement here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">
+                    <i class="bi bi-send-fill me-2"></i> Post
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Submitted Assignments -->
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <i class="bi bi-folder2-open me-2"></i> View Submitted Assignments
+        </div>
+        <div class="card-body">
+            {% if submissions %}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Title</th>
+                            <th>Submitted File</th>
+                            <th>Submitted On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for submission in submissions %}
+                        <tr>
+                            <td>{{ submission.student.username }}</td>
+                            <td>{{ submission.assignment.title }}</td>
+                            <td>
+                                <a href="{{ submission.file.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-file-earmark-arrow-down"></i> Download
+                                </a>
+                            </td>
+                            <td>{{ submission.submitted_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted">No submissions yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
