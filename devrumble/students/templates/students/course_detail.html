@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Course Details</h2>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card p-4 shadow-sm">
+                <h4 class="card-title">{{ course.title }}</h4>
+                <p><strong>Description:</strong> {{ course.description }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'student:courses_list' %}" class="btn btn-secondary">Back to Courses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

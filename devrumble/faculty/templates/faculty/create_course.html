@@ -1,0 +1,39 @@
+<!-- dashboard/templates/dashboard/create_course.html -->
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Create Course{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-book"></i> Create Course</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="course-name">Course Name</label>
+                <input type="text" class="form-control" id="course-name" placeholder="Enter course name">
+            </div>
+            <div class="form-group">
+                <label for="course-code">Course Code</label>
+                <input type="text" class="form-control" id="course-code" placeholder="Enter course code">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select class="form-control" id="department">
+                    <option>Computer Science</option>
+                    <option>Mathematics</option>
+                    <option>Physics</option>
+                    <option>Engineering</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Course</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

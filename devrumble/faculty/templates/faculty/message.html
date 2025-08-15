@@ -1,0 +1,56 @@
+<!-- dashboard/templates/dashboard/messages.html -->
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-envelope"></i> Messages</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Inbox</h5>
+            </div>
+            <div class="card-body message-list">
+                <div class="message-item active">
+                    <h6>Admin Team</h6>
+                    <p>New semester guidelines</p>
+                    <small>Today, 10:30 AM</small>
+                </div>
+                <div class="message-item">
+                    <h6>Dr. Michael Smith</h6>
+                    <p>Meeting about curriculum</p>
+                    <small>Yesterday, 3:45 PM</small>
+                </div>
+                <div class="message-item">
+                    <h6>Student Support</h6>
+                    <p>Question about grades</p>
+                    <small>Monday, 9:15 AM</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>New semester guidelines</h5>
+                <small>From: Admin Team • Today, 10:30 AM</small>
+            </div>
+            <div class="card-body">
+                <p>Dear Faculty Members,</p>
+                <p>Please find attached the guidelines for the upcoming semester...</p>
+                <hr>
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="Reply to this message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Update Student Profile</h2>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card p-4 shadow-sm">
+                <h4 class="card-title mb-3">Your Profile</h4>
+                {% if user.profile.role == 'student' %}
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <form method="post" action="{% url 'profile' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ user.profile.name|default:user.username }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Update Profile</button>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+                {% else %}
+                <div class="alert alert-danger" role="alert">
+                    Access restricted: This page is for students only.
+                </div>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
