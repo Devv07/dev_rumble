@@ -1,0 +1,207 @@
+{% extends 'student/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="main-content">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3><i class="fas fa-user-graduate"></i> My Learning</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><i class="fas fa-play-circle"></i> Ongoing Courses</a></li>
+                <li><a href="#"><i class="fas fa-check-circle"></i> Completed Courses</a></li>
+                <li><a href="#"><i class="fas fa-bookmark"></i> Saved Materials</a></li>
+                <li><a href="#"><i class="fas fa-certificate"></i> Certificates</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3><i class="fas fa-users"></i> Collaboration</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#"><i class="fas fa-user-friends"></i> Study Groups</a></li>
+                <li><a href="#"><i class="fas fa-comments"></i> Discussions</a></li>
+                <li><a href="#"><i class="fas fa-video"></i> Virtual Classes</a></li>
+                <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3><i class="fas fa-calendar-alt"></i> Calendar</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#"><i class="fas fa-calendar-check"></i> Today</a></li>
+                <li><a href="#"><i class="fas fa-calendar-week"></i> This Week</a></li>
+                <li><a href="#"><i class="fas fa-exclamation-circle"></i> Deadlines</a></li>
+                <li><a href="#"><i class="fas fa-bullhorn"></i> Events</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#"><i class="fas fa-user-cog"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="#"><i class="fas fa-lock"></i> Security</a></li>
+                <li><a href="{% url 'core:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </aside>
+    
+    <!-- Main Area -->
+    <main class="main-area">
+        <!-- Welcome Banner -->
+        <section class="welcome-banner">
+            <div class="welcome-text">
+                <h2>Welcome back, {{ user_name }}!</h2>
+                <p>You have {{ upcoming_deadlines }} upcoming deadlines and {{ new_discussions }} new discussion threads. Continue your learning journey or collaborate with peers.</p>
+            </div>
+            <button class="cta-button">Explore Courses</button>
+        </section>
+        
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon icon-1">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ active_courses }}</h3>
+                    <p>Active Courses</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon icon-2">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ pending_assignments }}</h3>
+                    <p>Pending Assignments</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon icon-3">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ study_groups }}</h3>
+                    <p>Study Groups</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon icon-4">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ new_discussions }}</h3>
+                    <p>New Discussions</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Ongoing Courses Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Ongoing Courses</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="course-list">
+                        {% for course in ongoing_courses %}
+                        <li class="course-item">
+                            <div class="course-icon">
+                                <i class="{{ course.icon }}"></i>
+                            </div>
+                            <div class="course-info">
+                                <h4>{{ course.title }}</h4>
+                                <p>{{ course.instructor }}</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: {{ course.progress }}%;"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Upcoming Events Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Upcoming Events</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="event-list">
+                        {% for event in upcoming_events %}
+                        <li class="event-item">
+                            <div class="event-date">
+                                <i class="fas fa-calendar-day"></i>
+                                <span>{{ event.date }}</span>
+                            </div>
+                            <h4 class="event-title">{{ event.title }}</h4>
+                            <div class="event-location">
+                                <i class="fas {{ event.location_icon }}"></i>
+                                <span>{{ event.location }}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Recent Discussions Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-comments"></i>
+                    <h3>Recent Discussions</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="discussion-list">
+                        {% for discussion in recent_discussions %}
+                        <li class="discussion-item">
+                            <div class="discussion-avatar">{{ discussion.user_initials }}</div>
+                            <div class="discussion-content">
+                                <h4>{{ discussion.title }}</h4>
+                                <p>{{ discussion.content|truncatewords:20 }}</p>
+                                <div class="discussion-meta">
+                                    <span><i class="fas fa-user"></i> {{ discussion.user }}</span>
+                                    <span><i class="fas fa-clock"></i> {{ discussion.time }}</span>
+                                    <span><i class="fas fa-comment"></i> {{ discussion.replies }} replies</span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Resources Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>Recent Resources</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="course-list">
+                        {% for resource in recent_resources %}
+                        <li class="course-item">
+                            <div class="course-icon">
+                                <i class="fas {{ resource.icon }}"></i>
+                            </div>
+                            <div class="course-info">
+                                <h4>{{ resource.title }}</h4>
+                                <p>{{ resource.description }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

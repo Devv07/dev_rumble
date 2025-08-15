@@ -1,0 +1,52 @@
+/* core/static/core/css/styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h2 {
+    color: #4361ee;
+    margin-bottom: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+input, button, select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+button {
+    background-color: #4361ee;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #3d52d5;
+}
+.errorlist {
+    color: red;
+    list-style: none;
+    padding: 0;
+}
+a {
+    color: #4361ee;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}

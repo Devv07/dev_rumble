@@ -1,0 +1,39 @@
+{% extends 'student/base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCampus | Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register for SmartCampus</h2>
+        {% if messages %}
+            <ul class="errorlist">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if can_create_admin %}
+                <label><input type="checkbox" name="is_faculty"> Register as Faculty (Superadmin)</label>
+            {% else %}
+                <label><input type="checkbox" name="is_faculty"> Register as Faculty (Superadmin, requires admin approval)</label>
+            {% endif %}
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'core:login' %}">Login here</a>.</p>
+    </div>
+</body>
+</html>
+{% endblock %}

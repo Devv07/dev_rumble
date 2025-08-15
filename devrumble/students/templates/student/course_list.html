@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<div class="p-6 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">My Courses</h1>
+    {% if courses %}
+        <ul class="list-disc pl-5">
+            {% for course in courses %}
+                <li class="mb-2">
+                    <span class="text-blue-500">{{ course.title }}</span>
+                    <p class="text-gray-600">{{ course.description }}</p>
+                    {% for assignment in course.assignments.all %}
+                        <div class="ml-4 mt-2">
+                            <p><strong>Assignment:</strong> {{ assignment.title }} (Due: {{ assignment.due_date|date:"F j, Y, P" }})</p>
+                            {% if assignment.submissions.filter(student=request.user).exists %}
+                                <p class="text-green-500">Submitted</p>
+                            {% else %}
+                                <a href="{% url 'student:assignment-submit' assignment.id %}" class="text-blue-500 hover:underline">Submit Assignment</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <a href="{% url 'student:discussion-create' course.id %}" class="text-blue-500 hover:underline ml-4">Start Discussion</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-600">No courses enrolled.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     'smart_campus',
     'collaboration',
+    'students',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -114,12 +115,19 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/students/'
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'student/static',
+    BASE_DIR / 'faculty/static',
+    BASE_DIR / 'core/static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
