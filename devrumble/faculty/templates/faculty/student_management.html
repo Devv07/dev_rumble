@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Management{% endblock %}
+
+{% block page_title %}Student Management (CRUD){% endblock %}
+
+{% block content %}
+<!-- Messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<!-- Read: List of students -->
+<h3>Students List</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course Enrolled</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.course.name }}</td>
+            <td>
+                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editStudentModal{{ student.id }}">Edit</button>
+                <a href="{% url 'delete_student' student.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editStudentModal{{ student.id }}" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'student_management' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <div class="mb-3">
+                                <label for="editName{{ student.id }}" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="editName{{ student.id }}" name="name" value="{{ student.name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editEmail{{ student.id }}" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editEmail{{ student.id }}" name="email" value="{{ student.email }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editCourse{{ student.id }}" class="form-label">Course</label>
+                                <select class="form-select" id="editCourse{{ student.id }}" name="course_id">
+                                    {% for course in courses %}
+                                    <option value="{{ course.id }}" {% if course.id == student.course.id %}selected{% endif %}>{{ course.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" name="update" class="btn btn-warning">Update Student</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <tr>
+            <td colspan="5">No students available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Create: Add new student form -->
+<h3 class="mt-4">Add New Student</h3>
+<form method="post" action="{% url 'student_management' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="studentName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="studentName" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="studentEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="studentEmail" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="courseEnroll" class="form-label">Enroll in Course</label>
+        <select class="form-select" id="courseEnroll" name="course_id">
+            {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" name="add" class="btn btn-primary">Add Student</button>
+<form>
+{% endblock %}

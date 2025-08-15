@@ -1,0 +1,64 @@
+<!-- submit_assignment.html -->
+{% extends 'base.html' %}
+
+{% block title %}Assignment Management{% endblock %}
+
+{% block page_title %}Assignment Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Create New Assignment</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/submit_assignment">  <!-- Assume backend endpoint -->
+            {% csrf_token %}  <!-- For dynamic CSRF protection in frameworks like Django -->
+            <div class="mb-3">
+                <label for="assignmentTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="assignmentTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="assignmentDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="assignmentDescription" name="description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="dueDate" class="form-label">Due Date</label>
+                <input type="date" class="form-control" id="dueDate" name="due_date" required>
+            </div>
+            <div class="mb-3">
+                <label for="courseSelect" class="form-label">Assign to Course</label>
+                <select class="form-select" id="courseSelect" name="course_id">
+                    <!-- Dynamically populated in backend, e.g., {% for course in courses %}<option value="{{ course.id }}">{{ course.name }}</option>{% endfor %} -->
+                    <option value="1">CS101</option>
+                    <option value="2">MATH202</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Assignment</button>
+        </form>
+    </div>
+</div>
+
+<!-- Example list of existing assignments for management -->
+<h3 class="mt-4">Existing Assignments</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dynamically populated, e.g., {% for assignment in assignments %} -->
+        <tr>
+            <td>Homework 1</td>
+            <td>2025-08-20</td>
+            <td>
+                <button class="btn btn-sm btn-warning">Edit</button>
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+        </tr>
+        <!-- {% endfor %} -->
+    </tbody>
+</table>
+{% endblock %}

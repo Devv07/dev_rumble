@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'smart_campus',
     'collaboration',
-
     'students',
     'core.apps.CoreConfig',
     'faculty',
@@ -146,5 +145,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_REDIRECT_URL = 'faculty:home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'faculty:faculty_dashboard'
 

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Select Profile Type{% endblock %}
+{% block page_title %}Select Profile Type{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Are you a Faculty or Student?</h5>
+    </div>
+    <div class="card-body">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="user_type" class="form-label">Select User Type</label>
+                <select class="form-select" id="user_type" name="user_type">
+                    <option value="faculty">Faculty</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -28,7 +28,7 @@ class RegistrationForm(forms.ModelForm):
 
 def login_view(request):
     if request.user.is_authenticated:
-        next_url = request.GET.get('next', 'students:dashboard' if not request.user.is_superuser else 'core:faculty_dashboard')
+        next_url = request.GET.get('next', 'students:dashboard' if not request.user.is_superuser else 'faculty:faculty_dashboard')
         return redirect(next_url)
     
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            next_url = request.GET.get('next', 'students:dashboard' if not user.is_superuser else 'core:faculty_dashboard')
+            next_url = request.GET.get('next', 'students:dashboard' if not user.is_superuser else 'faculty:faculty_dashboard')
             return redirect(next_url)
         else:
             messages.error(request, 'Invalid username or password.')
@@ -46,7 +46,7 @@ def login_view(request):
 
 def register_view(request):
     if request.user.is_authenticated:
-        return redirect('students:dashboard' if not request.user.is_superuser else 'core:faculty_dashboard')
+        return redirect('students:dashboard' if not request.user.is_superuser else 'faculty:faculty_dashboard')
     
     can_create_admin = not User.objects.filter(is_superuser=True).exists()
     if request.method == 'POST':
@@ -61,7 +61,7 @@ def register_view(request):
                 return render(request, 'registration/register.html', {'form': form, 'can_create_admin': can_create_admin})
             user.save()
             login(request, user)
-            next_url = request.GET.get('next', 'students:dashboard' if not user.is_superuser else 'core:faculty_dashboard')
+            next_url = request.GET.get('next', 'students:dashboard' if not user.is_superuser else 'faculty:faculty_dashboard')
             return redirect(next_url)
         else:
             messages.error(request, 'Please correct the errors below.')

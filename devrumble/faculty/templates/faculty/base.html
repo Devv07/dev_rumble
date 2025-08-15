@@ -1,210 +1,80 @@
+<!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Campus | Faculty Dashboard</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-bg: #f8f9fa;
-            --dark-bg: #343a40;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .sidebar {
-            min-height: 100vh;
-            background: var(--secondary-color);
-            color: white;
-            transition: all 0.3s;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            border-radius: 5px;
-            margin-bottom: 5px;
-            transition: all 0.3s;
-        }
-        
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .sidebar .nav-link i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .main-content {
-            padding: 20px;
-        }
-        
-        .dashboard-card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-bottom: 20px;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 15px 20px;
-        }
-        
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .badge-custom {
-            background-color: var(--accent-color);
-            color: white;
-        }
-        
-        .course-item {
-            border-left: 4px solid var(--primary-color);
-            transition: all 0.3s;
-        }
-        
-        .course-item:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 0.7rem;
-        }
-    </style>
+    <title>Faculty App - {% block title %}Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-dark">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <div class="position-sticky pt-3">
-                    <div class="text-center mb-4">
-                        <h4 class="text-white">Smart Campus</h4>
-                        <p class="text-muted small">Faculty Dashboard</p>
-                    </div>
-                    
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'faculty:dashboard' %}">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            <a class="nav-link active" href="/faculty_dashboard">
+                                <i class="fas fa-home me-2"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-book"></i> Courses
+                            <a class="nav-link" href="/courses">
+                                <i class="fas fa-book me-2"></i> Courses
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-users"></i> Students
-                                <span class="badge bg-danger notification-badge">3</span>
+                            <a class="nav-link" href="/student_management">
+                                <i class="fas fa-users me-2"></i> Students
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-calendar-alt"></i> Schedule
+                            <a class="nav-link" href="/submit_assignment">
+                                <i class="fas fa-tasks me-2"></i> Assignments
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-chart-line"></i> Analytics
+                            <a class="nav-link" href="/calendar">
+                                <i class="fas fa-calendar me-2"></i> Calendar
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-comments"></i> Discussions
-                                <span class="badge bg-danger notification-badge">5</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-cog"></i> Settings
+                            <a class="nav-link" href="/settings">
+                                <i class="fas fa-cog me-2"></i> Settings
                             </a>
                         </li>
                     </ul>
-                    
-                    <div class="position-absolute bottom-0 start-0 p-3 w-100">
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2">
-                            <div>
-                                <small class="text-white d-block">{{ request.user.get_full_name }}</small>
-                                <small class="text-muted">Faculty</small>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 main-content">
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Navbar -->
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">{% block page_title %}Dashboard{% endblock %}</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-calendar me-1"></i> Today
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-bell me-1"></i> Notifications
-                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <i class="fas fa-plus me-1"></i> New
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
                         </button>
                     </div>
                 </div>
-                
-                {% block content %}{% endblock %}
+
+                {% block content %}
+                {% endblock %}
             </main>
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Custom JS -->
-    <script>
-        // You can add custom JavaScript here
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize tooltips
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            });
-        });
-    </script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>
 </html>

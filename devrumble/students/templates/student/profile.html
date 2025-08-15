@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Create Faculty Profile{% endblock %}
-{% block page_title %}Create Faculty Profile{% endblock %}
+{% block title %}Create Student Profile{% endblock %}
+{% block page_title %}Create Student Profile{% endblock %}
 {% block content %}
 <div class="card">
     <div class="card-header">
@@ -14,8 +14,8 @@
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="mb-3">
-                <label for="department" class="form-label">Department</label>
-                <input type="text" class="form-control" id="department" name="department">
+                <label for="student_id" class="form-label">Student ID</label>
+                <input type="text" class="form-control" id="student_id" name="student_id" required>
             </div>
             <button type="submit" class="btn btn-primary">Create Profile</button>
         </form>

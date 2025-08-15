@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from core.models import Course, StudentCourseProgress, Event, Discussion, Resource, Assignment, StudyGroup
 from django.utils import timezone
+from .models import StudentProfile
 
 def dashboard(request):
     if not request.user.is_authenticated:
@@ -47,5 +48,17 @@ def dashboard(request):
         'recent_resources': recent_resources,
     }
     return render(request, 'student/dashboard.html', context)
-def dashboard_view(request):
+
+def dashboard(request):
     return render(request, 'student/dashboard.html')
+def profile(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        student_id = request.POST.get('student_id')
+        StudentProfile.objects.create(user=request.user, name=name, student_id=student_id)
+        return redirect('student:dashboard')
+    return render(request, 'student/profile.html')
+
+def student_dashboard(request):
+    profiles = StudentProfile.objects.all()
+    return render(request, 'students/dashboard.html', {'profiles': profiles})
